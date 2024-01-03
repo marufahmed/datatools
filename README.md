@@ -96,3 +96,11 @@ Converted 'file3.pdf' to '8.jpg'
 
 Your PDF files will be converted into JPG images with sequential index numbers. Enjoy converting your PDFs to images!
 
+# Dataset evaluation
+step 1: combine ground truth files if necessary [concat_csv.py (if two gt files present) / extract_columns.py (if one gt file is present)] 
+step 2: remove path from combined ground truth file from step 1 [remove_path.py]
+step 3: compare predictions with ground truth [compare.py]
+step 4: calculate levenshtein distance & measure accuracy [levenshtein_distance.py]
+step 5: visualize levenshtein distance [visualize_levenshtein_distance.py]
+
+
