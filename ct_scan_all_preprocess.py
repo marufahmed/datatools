@@ -116,9 +116,9 @@ def create_output_directories(output_dir, patient_id, scan_id):
     return scan_dir
 
 # Example usage for the input directory and Parquet file
-input_dir = '/home/mdmajedulislam/Downloads/train_images'
-output_dir = '/home/mdmajedulislam/Downloads/rsna_preprocessing_output'
-parquet_file = '/home/mdmajedulislam/Downloads/train_dicom_tags.parquet'
+input_dir = '/path_to/train_images'
+output_dir = '/path_to/rsna_preprocessing_output'
+parquet_file = '/path_to/train_dicom_tags.parquet'
 
 # Specify X, Y, and Z dimensions for the 3D volume
 x_size, y_size, z_size = 128, 128, 128
