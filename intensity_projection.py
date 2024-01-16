@@ -87,6 +87,7 @@ def create_thresholded_mip_z(input_path, output_dir, threshold):
     nib.save(mip_nifti_z, output_file_z)
     return output_file_z
 
+
 if __name__ == "__main__":
     # Replace these paths with your input and output directory paths
     input_file = "/home/ubuntu/RSNA/dataset/output_directory/10127/1554/ct_scan.nii.gz"

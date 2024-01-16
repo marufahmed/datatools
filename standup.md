@@ -1,5 +1,4 @@
 # Work Progress - Maruf Ahmed - 15/01/24
-# Work Progress - Maruf Ahmed
 ## Completed:
 - Grapheme List
 - CCW word manual checking for annotation mismatch
