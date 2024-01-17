@@ -4,6 +4,10 @@ import argostranslate.translate
 from datasets import load_dataset
 import time
 from concurrent.futures import ProcessPoolExecutor, as_completed
+import os
+
+# Set the GPU device type before importing the argostranslate module
+os.environ['ARGOS_DEVICE_TYPE'] = 'cuda'
 
 # Load the original dataset
 dataset = load_dataset("Open-Orca/OpenOrca")
@@ -14,7 +18,7 @@ new_df = df[['question', 'response']].copy()
 
 # Set up Argos Translate
 from_code = "en"
-to_code = "bn"
+to_code = "es"  # Assuming you want to translate to Spanish
 argostranslate.package.update_package_index()
 available_packages = argostranslate.package.get_available_packages()
 available_package = list(
