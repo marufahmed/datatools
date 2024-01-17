@@ -1,0 +1,70 @@
+import pandas as pd
+import argostranslate.package
+import argostranslate.translate
+from datasets import load_dataset
+import time
+from concurrent.futures import ProcessPoolExecutor, as_completed
+
+# Load the original dataset
+dataset = load_dataset("Open-Orca/OpenOrca")
+df = pd.DataFrame(dataset['train'])
+
+# Create a new DataFrame with only 'question' and 'response'
+new_df = df[['question', 'response']].copy()
+
+# Set up Argos Translate
+from_code = "en"
+to_code = "bn"
+argostranslate.package.update_package_index()
+available_packages = argostranslate.package.get_available_packages()
+available_package = list(
+    filter(
+        lambda x: x.from_code == from_code and x.to_code == to_code, available_packages
+    )
+)[0]
+download_path = available_package.download()
+argostranslate.package.install_from_path(download_path)
+
+# Translate function
+def translate_text(text):
+    from_lang = list(filter(lambda x: x.code == from_code, argostranslate.translate.get_installed_languages()))[0]
+    to_lang = list(filter(lambda x: x.code == to_code, argostranslate.translate.get_installed_languages()))[0]
+    translation = from_lang.get_translation(to_lang)
+    translated_text = translation.translate(text)
+    return translated_text
+
+# Translation function for parallel processing
+def translate_row(row):
+    question = row['question']
+    response = row['response']
+    translated_question = translate_text(question)
+    translated_response = translate_text(response)
+    return {'question': translated_question, 'response': translated_response}
+
+# Parallel translation loop
+translated_pairs = 0
+interval = 30  # In seconds
+start_time = time.time()
+
+with ProcessPoolExecutor() as executor:
+    futures = {executor.submit(translate_row, row): row for index, row in new_df.iterrows()}
+
+    for future in as_completed(futures):
+        row = futures[future]
+        try:
+            translated_row = future.result()
+            new_df.at[row.name, 'question'] = translated_row['question']
+            new_df.at[row.name, 'response'] = translated_row['response']
+            translated_pairs += 1
+        except Exception as e:
+            print(f"Translation error for row {row.name}: {e}")
+
+        # Check if 30 minutes have passed and save progress
+        if time.time() - start_time > interval:
+            new_df[['question', 'response']].to_csv('translated_data.csv', index=False, escapechar='\\')
+            print(f"Translated pairs: {translated_pairs}")
+            start_time = time.time()
+
+# Save the final DataFrame with only the last two columns
+new_df[['question', 'response']].to_csv('translated_data_final.csv', index=False)
+print("Translation completed. Total translated pairs:", translated_pairs)
