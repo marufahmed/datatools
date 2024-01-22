@@ -8,7 +8,6 @@ import logging
 from borno.char_recognition.grapheme_recognition_v2 import GraphemeRecognition
 from borno.char_recognition import char_seg_pixel, chars_postproc
 
-
 # Create a logger
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -31,7 +30,7 @@ def get_char_model():
     start_time = time.time()
 
     # Initialize GraphemeRecognition without Triton
-    char_recog_model = GraphemeRecognition(triton_config=None,triton=False)
+    char_recog_model = GraphemeRecognition(triton_config=None, triton=False)
 
     load_time = round(time.time() - start_time, 4)
     logger.info(f"Character model loading time: {load_time}")
@@ -45,7 +44,6 @@ csv_file_path = '/Users/marufahmed/Work/Apurba/ocr_dataset_evaluation/prediction
 
 # Path to save exceptions CSV file
 exceptions_csv_file_path = '/Users/marufahmed/Work/Apurba/ocr_dataset_evaluation/prediction_char/exceptions_ccw_word_characterModel.csv'
-
 
 # Initialize OCR model
 ocr_model = get_char_model()  # Get the model using the function
@@ -89,18 +87,20 @@ with open(csv_file_path, 'a', newline='', encoding='utf-8-sig') as csvfile, open
     # Process the sorted file list sequentially
     for filename in file_list:
         file_path = os.path.join(directory_path, filename)
-        
+
         try:
             # Read the image using OpenCV
             image = cv2.imread(file_path)
 
             seg_img_dict = char_seg_pixel(image)
             seg_img = seg_img_dict['chars']
+
+            # Use the new grapheme recognition model to predict characters
             ocr_result = ocr_model.predict_chars(seg_img)
 
             # Print OCR detection
             print(f"OCR Detection for {filename}: {ocr_result}")
-            
+
             # Convert the list of characters to a word
             word = ''.join(ocr_result)
 
@@ -115,9 +115,7 @@ with open(csv_file_path, 'a', newline='', encoding='utf-8-sig') as csvfile, open
             # If an exception occurs, save details to exceptions.csv
             print(f"Error processing {filename}: {e}")
             exceptions_writer.writerow({'ID': filename, 'Exception': str(e)})
-        
-        
 
-# Inform user about CSV file creation
+# Inform the user about CSV file creation
 print(f"OCR results are saved in '{csv_file_path}'")
 print(f"Exceptions are saved in '{exceptions_csv_file_path}'")
