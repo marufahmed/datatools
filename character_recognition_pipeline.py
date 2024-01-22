@@ -65,7 +65,7 @@ if os.path.exists(csv_file_path):
 
 # Open CSV file to write results (append mode)
 with open(csv_file_path, 'a', newline='', encoding='utf-8-sig') as csvfile, open(exceptions_csv_file_path, 'a', newline='', encoding='utf-8-sig') as exceptions_csvfile:
-    fieldnames = ['ID', 'Characters']
+    fieldnames = ['ID', 'Text', 'Characters']
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
     exceptions_writer = csv.DictWriter(exceptions_csvfile, fieldnames=['ID', 'Exception'])
 
