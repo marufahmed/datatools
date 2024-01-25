@@ -102,3 +102,7 @@ a23729bc8711   nvcr.io/nvidia/tritonserver:22.12-py3   "/opt/nvidia/nvidia_…" 
 consumers: 1 windows (created Wed Jan 24 23:57:33 2024)
 docker-triton: 1 windows (created Wed Jan 24 16:56:37 2024)
 python-container: 1 windows (created Wed Jan 24 23:50:34 2024)
+
+# ocr_word_tw is unavailable with this error: 
+```CUDA failure 900: operation not permitted when stream is capturing ; GPU=0 ; hostname=f8b10341d21e ; expr=cudaDeviceSynchronize();```
+This is happening because of asynchronous task distribution. When trying to distribute, CUDA cannot find other GPU.
