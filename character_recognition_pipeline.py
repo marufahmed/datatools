@@ -57,9 +57,16 @@ last_processed_image = None
 if os.path.exists(csv_file_path):
     with open(csv_file_path, 'r', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
+        
+        # Print the header to identify the correct column name
+        print(f"CSV Header: {reader.fieldnames}")
+
         for row in reader:
-            last_processed_image = row['ID']
-    print(f"Resuming OCR from image: {last_processed_image}")
+            # Update the column name based on the actual header
+            last_processed_image = row['ID']  # Replace 'ID' with the correct column name
+            processed_count += 1  # Increment processed_count for each row in the CSV
+        print(f"Resuming OCR from image: {last_processed_image}")
+
 
 # Open CSV file to write results (append mode)
 with open(csv_file_path, 'a', newline='', encoding='utf-8-sig') as csvfile, open(exceptions_csv_file_path, 'a', newline='', encoding='utf-8-sig') as exceptions_csvfile:
