@@ -3,6 +3,13 @@
 ### Initiation
 - The OCR process begins when images or documents are uploaded or submitted to the OCR system.
 
+### Noise Removal (noise_consumer.py)
+- Another Kafka consumer (`noise_consumer.py`) listens to the 'queue_noise_remove' topic.
+- For each message received:
+  - The script retrieves information such as 'id', 'projectId', 'fileName', and 'noiseType' from the Kafka message.
+  - It performs noise removal, including tasks such as skew correction, border noise removal, and background removal.
+  - The processed image is sent to the 'queue_detect_logo' Kafka topic for further processing.
+
 ### Logo Detection (logo_consumer.py)
 - A Kafka consumer (`logo_consumer.py`) is set up to listen to the 'queue_detect_logo' topic.
 - For each message received:
@@ -10,13 +17,6 @@
   - It retrieves information such as 'id', 'projectId', 'fileName', and 'documentType' from the Kafka message.
   - If the document type is not 'hw' or 'tw', the script performs logo detection and removal using the YOLOv5 model.
   - The processed image and regions without logos are sent to the 'queue_segment_word' Kafka topic.
-
-### Noise Removal (noise_consumer.py)
-- Another Kafka consumer (`noise_consumer.py`) listens to the 'queue_noise_remove' topic.
-- For each message received:
-  - The script retrieves information such as 'id', 'projectId', 'fileName', and 'noiseType' from the Kafka message.
-  - It performs noise removal, including tasks such as skew correction, border noise removal, and background removal.
-  - The processed image is sent to the 'queue_detect_logo' Kafka topic for further processing.
 
 ### Segmentation (segmentation_consumer.py)
 - A Kafka consumer (`segmentation_consumer.py`) listens to the 'queue_segment_word' topic.
