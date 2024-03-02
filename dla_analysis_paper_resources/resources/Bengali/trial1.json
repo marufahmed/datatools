@@ -1,0 +1,70 @@
+------------------------------
+Ground Truth
+Class: paragraph
+Number of overlapping areas: 14
+Average IoU for paragraph: 1.0
+----------
+Class: table
+Number of overlapping areas: 1
+Average IoU for table: 1.0
+----------
+Class: image
+Number of overlapping areas: 0
+Average IoU for image: 0
+----------
+------------------------------
+Yolo V8 custom trained
+Class: paragraph
+Number of overlapping areas: 14
+Average IoU for paragraph: 0.8121732067724988
+----------
+Class: table
+Number of overlapping areas: 1
+Average IoU for table: 0.7875617908761358
+----------
+Class: image
+Number of overlapping areas: 0
+Average IoU for image: 0
+----------
+------------------------------
+Document Image Transformer
+Class: paragraph
+Number of overlapping areas: 12
+Average IoU for paragraph: 0.6553193260425071
+----------
+Class: table
+Number of overlapping areas: 1
+Average IoU for table: 0.7457276022786121
+----------
+Class: image
+Number of overlapping areas: 0
+Average IoU for image: 0
+----------
+------------------------------
+Layout LM
+Class: paragraph
+Number of overlapping areas: 11
+Average IoU for paragraph: 0.722830517946108
+----------
+Class: table
+Number of overlapping areas: 0
+Average IoU for table: 0.0
+----------
+Class: image
+Number of overlapping areas: 0
+Average IoU for image: 0
+----------
+------------------------------
+Yolo V8 Pretrained
+Class: paragraph
+Number of overlapping areas: 12
+Average IoU for paragraph: 0.6589880742924777
+----------
+Class: table
+Number of overlapping areas: 0
+Average IoU for table: 0.0
+----------
+Class: image
+Number of overlapping areas: 0
+Average IoU for image: 0
+----------
