@@ -103,4 +103,5 @@ step 3: compare predictions with ground truth [compare.py]
 step 4: calculate levenshtein distance & measure accuracy [levenshtein_distance.py]
 step 5: visualize levenshtein distance [visualize_levenshtein_distance.py]
 
-
+# Combine
+This performs the combination of three channel image along each projected axis
