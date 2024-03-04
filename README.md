@@ -105,3 +105,6 @@ step 5: visualize levenshtein distance [visualize_levenshtein_distance.py]
 
 # Combine
 This performs the combination of three channel image along each projected axis
+
+# Dataset Creation
+This code performs the classification, class imbalance sampling, renaming and relocation of each of the images in the dataset
