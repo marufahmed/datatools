@@ -1,0 +1,5 @@
+step 1: compress with gzip
+gzip -c recognition_q.log > recognition_q.log.gz
+
+step 2: upload to dropbox with api
+curl -X POST https://content.dropboxapi.com/2/files/upload  --header "Authorization: Bearer <TOKEN>"  --header "Dropbox-API-Arg: {\"path\":\"/recognition_q.log.gz\",\"mode\":{\".tag\":\"add\"},\"autorename\":true,\"mute\":false,\"strict_conflict\":false}"  --header "Content-Type: application/octet-stream"  --data-binary @recognition_q.log.gz`
