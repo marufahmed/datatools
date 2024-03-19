@@ -23,6 +23,19 @@ def create_3d_volume_with_keyframes(images, target_size=(128, 128, 128)):
     
     return volume
 
+
+# Function to load and sort PNG files from a directory numerically
+def load_and_sort_png_files(scan_dir):
+    png_files = [os.path.join(scan_dir, file) for file in os.listdir(scan_dir) if file.endswith('.png')]
+    
+    # Sort the PNG files numerically
+    png_files.sort()
+    
+    # Read PNG images
+    images = [cv2.imread(png_file, cv2.IMREAD_GRAYSCALE) for png_file in png_files]
+    
+    return images
+
 # Function to create the desired output directory structure
 def create_output_directories(output_dir, patient_id, scan_id):
     patient_dir = os.path.join(output_dir, patient_id)
